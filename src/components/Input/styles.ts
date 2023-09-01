@@ -1,7 +1,13 @@
 import styled from 'styled-components'
 
-export const InputContainer = styled.div`
-  width: 100%;
+interface InputContainerProps {
+  relativeWidth?: number
+}
+
+export const InputContainer = styled.div<InputContainerProps>`
+  flex: ${({ relativeWidth }) => relativeWidth ?? 1} 0 0;
+
+  min-width: 10px;
 
   display: flex;
   justify-content: space-between;
@@ -27,6 +33,7 @@ export const InputContainer = styled.div`
   input {
     flex: 1;
 
+    min-width: 10px;
     border: 1px solid ${({ theme }) => theme['base-button']};
     border-radius: 4px;
     padding: 0.75rem;

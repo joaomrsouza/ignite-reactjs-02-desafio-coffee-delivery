@@ -31,9 +31,11 @@ export const ButtonPrimaryContainer = styled(BaseButtonContainer)`
 
 export const ButtonSecondaryContainer = styled(BaseButtonContainer)`
   width: 100%;
+  height: 2rem;
   padding: 0 0.5rem;
 
   display: inline-flex;
+  gap: 0.25rem;
 
   font-size: 0.75rem;
   line-height: 1.2;
@@ -44,6 +46,10 @@ export const ButtonSecondaryContainer = styled(BaseButtonContainer)`
 
   &:hover {
     background: ${({ theme }) => theme['base-hover']};
+  }
+
+  svg {
+    color: ${({ theme }) => theme.purple};
   }
 `
 

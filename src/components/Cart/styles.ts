@@ -14,6 +14,8 @@ export const CartContainer = styled.button`
   background: ${({ theme }) => theme['yellow-light']};
   color: ${({ theme }) => theme['yellow-dark']};
 
+  cursor: pointer;
+
   & > svg {
     width: 1.375rem;
     height: 1.375rem;
