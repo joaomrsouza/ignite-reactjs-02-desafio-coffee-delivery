@@ -1,32 +1,43 @@
 import { Minus, Plus } from '@phosphor-icons/react'
-import { InputHTMLAttributes, useRef } from 'react'
+import { ChangeEvent, InputHTMLAttributes, useState } from 'react'
 import { InputNumberButton, InputNumberContainer } from './styles'
 
-interface InputNumberProps extends InputHTMLAttributes<HTMLInputElement> {}
+interface InputNumberProps
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
+  onChange?: (newValue: number) => void
+}
 
 export function InputNumber(props: InputNumberProps) {
-  // TODO: Transformar isso num controlled component e customizar o onChange
-
-  const inputRef = useRef<HTMLInputElement>(null)
+  const [value, setValue] = useState(props.value ? Number(props.value) : 0)
 
   function handleIncrement() {
-    if (!inputRef.current) return
-    const newValue = Number(inputRef.current?.value) + 1
-    const max = inputRef.current.max
-
-    if (max !== '' && newValue > Number(max)) return
-
-    inputRef.current.value = String(newValue)
+    setValue((st) => {
+      const { max } = props
+      if (max !== '' && st + 1 > Number(max)) return st
+      props.onChange?.(st + 1)
+      return st + 1
+    })
   }
 
   function handleDecrement() {
-    if (!inputRef.current) return
-    const newValue = Number(inputRef.current?.value) - 1
-    const min = inputRef.current.min
+    setValue((st) => {
+      const { min } = props
+      if (min !== '' && st - 1 < Number(min)) return st
+      props.onChange?.(st - 1)
+      return st - 1
+    })
+  }
 
-    if (min !== '' && newValue < Number(min)) return
+  function handleChange(event: ChangeEvent<HTMLInputElement>) {
+    const newValue = Number(event.target.value)
+    const min = Number(props.min)
+    const max = Number(props.max)
 
-    inputRef.current.value = String(newValue)
+    if (min !== undefined && newValue < min) return
+    if (max !== undefined && newValue > max) return
+
+    setValue(newValue)
+    props.onChange?.(newValue)
   }
 
   return (
@@ -34,7 +45,12 @@ export function InputNumber(props: InputNumberProps) {
       <InputNumberButton type="button" onClick={handleDecrement}>
         <Minus />
       </InputNumberButton>
-      <input inputMode="numeric" ref={inputRef} {...props} />
+      <input
+        inputMode="numeric"
+        {...props}
+        value={value}
+        onChange={handleChange}
+      />
       <InputNumberButton type="button" onClick={handleIncrement}>
         <Plus />
       </InputNumberButton>

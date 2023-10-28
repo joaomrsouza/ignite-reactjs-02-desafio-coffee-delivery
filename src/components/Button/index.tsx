@@ -1,11 +1,11 @@
-import { HTMLAttributes, ReactNode } from 'react'
+import { ButtonHTMLAttributes, ReactNode } from 'react'
 import {
   ButtonIconContainer,
   ButtonPrimaryContainer,
   ButtonSecondaryContainer,
 } from './styles'
 
-interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'icon'
   children?: ReactNode
 }

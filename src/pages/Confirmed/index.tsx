@@ -2,6 +2,8 @@ import { CurrencyDollar, MapPin, Timer } from '@phosphor-icons/react'
 import delivery from '../../assets/delivery.svg'
 import { IconText } from '../../components/IconText'
 
+import { useContext } from 'react'
+import { CheckoutContext } from '../../contexts/CheckoutContext'
 import {
   ConfirmedContainer,
   DeliverySummaryContainer,
@@ -11,6 +13,8 @@ import {
 } from './styles'
 
 export function Confirmed() {
+  const { address, paymentMethod } = useContext(CheckoutContext)
+
   return (
     <ConfirmedContainer>
       <Header>
@@ -22,7 +26,11 @@ export function Confirmed() {
           <DeliverySummaryContainer>
             <IconText circleBackground="purple" icon={<MapPin weight="fill" />}>
               Entrega em{' '}
-              <b>Rua João Daniel Martinelli, 102 Farrapos - Porto Alegre, RS</b>
+              <b>
+                {address.street}, {address.number}
+              </b>
+              <br />
+              {address.district} - {address.city}, {address.state}
             </IconText>
             <IconText circleBackground="yellow" icon={<Timer weight="fill" />}>
               <p>Previsão de entrega</p>
@@ -33,7 +41,9 @@ export function Confirmed() {
             <IconText circleBackground="yellow-dark" icon={<CurrencyDollar />}>
               <p>Pagamento na entrega</p>
               <p>
-                <b>Cartão de Crédito</b>
+                {paymentMethod === 'credit' && <b>Cartão de Crédito</b>}
+                {paymentMethod === 'debit' && <b>Cartão de Débito</b>}
+                {paymentMethod === 'money' && <b>Dinheiro</b>}
               </p>
             </IconText>
           </DeliverySummaryContainer>

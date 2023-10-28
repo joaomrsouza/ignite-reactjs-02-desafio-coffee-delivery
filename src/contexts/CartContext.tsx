@@ -1,7 +1,6 @@
 import { produce } from 'immer'
 import { createContext, ReactNode, useState } from 'react'
 import { Product } from '../data/products'
-import { useLog } from '../hooks/useLog'
 
 interface CartContextData {
   cartProducts: Map<Product, number>
@@ -22,8 +21,6 @@ export function CartContextProvider(props: CartProviderProps) {
   const [cartProducts, setCartProducts] = useState<Map<Product, number>>(
     new Map(),
   )
-
-  useLog(cartProducts)
 
   function addToCart(product: Product, quantity: number) {
     setCartProducts((state) =>

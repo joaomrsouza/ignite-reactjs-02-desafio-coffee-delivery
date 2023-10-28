@@ -37,13 +37,11 @@ export function ProductCard(props: ProductCardProps) {
       product,
       Number(new FormData(event.currentTarget).get('quantity')),
     )
-
-    event.currentTarget.reset()
   }
 
   return (
     <ProductCardContainer>
-      <img src={image} />
+      <img src={image} alt={`Xícara com pires contendo ${name}`} />
       <TagList>
         {tags.map((tag) => (
           <Tag key={tag}>{tag}</Tag>
@@ -56,7 +54,7 @@ export function ProductCard(props: ProductCardProps) {
           R$ <span>{formatter(price)}</span>
         </Price>
         <ActionsForm onSubmit={handleAddToCart}>
-          <InputNumber name="quantity" defaultValue={1} min={1} />
+          <InputNumber name="quantity" value={1} min={1} />
           <Button variant="icon">
             <ShoppingCartSimple weight="fill" />
           </Button>

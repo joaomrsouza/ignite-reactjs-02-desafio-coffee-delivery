@@ -39,7 +39,7 @@ export function OrderSummary() {
           <span>{formatter(3.5 + orderPrice)}</span>
         </p>
       </PriceSummaryContainer>
-      <Button>Confirmar Pedido</Button>
+      <Button type="submit">Confirmar Pedido</Button>
     </OrderSummaryContainer>
   )
 }
